@@ -13,8 +13,6 @@
 var restify = require('restify');
 
 module.exports = function(req, res, next) {
-
-
   function inArray(item, arr) {
     return arr.indexOf(item) > -1;
   }
@@ -23,32 +21,35 @@ module.exports = function(req, res, next) {
   var errors = [];
   var c = expected.length;
   while (c--) {
+    var incoming = req.params;
+    // if body is specified we need to check the body :)
+    if(expected[c].location === 'body') {
+      incoming = req.body;
+    }
 
-    if (!req.params[expected[c].name]) { // param provided is listed.
+    if (!incoming[expected[c].name]) { // param provided is listed.
 
       if (expected[c].required) {
         if (
-          !req.params[expected[c].name] ||
-          req.params[expected[c].name] === ''
+          !incoming[expected[c].name] ||
+          incoming[expected[c].name] === ''
         ) {
           errors.push('`' + expected[c].name + '` is a required field.');
         }
       }
 
-
-
     } else {
 
       if (expected[c].type === 'number') {
-        if (isNaN(req.params[expected[c].name])) {
+        if (isNaN(incoming[expected[c].name])) {
           errors.push('Expected number in field `' + expected[c].name +
-            '` but got value: `' + req.params[expected[c].name] + '`.');
+            '` but got value: `' + incoming[expected[c].name] + '`.');
         }
       }
 
       if (expected[c].options) {
-        if (!inArray(req.params[expected[c].name], expected[c].options)) {
-          errors.push('Invalid value (' + req.params[expected[c].name] +
+        if (!inArray(incoming[expected[c].name], expected[c].options)) {
+          errors.push('Invalid value (' + incoming[expected[c].name] +
             ') entered in field: `' + expected[c].name + '`. Available options'+
             ' are: ' + expected[c].options.join(', ')
             );
