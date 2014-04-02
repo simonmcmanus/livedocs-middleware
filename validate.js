@@ -17,13 +17,18 @@ module.exports = function(req, res, next) {
     return arr.indexOf(item) > -1;
   }
 
+
   var expected = req.spec.parameters;
+
+
   var errors = [];
+  var incoming = req.params;
   var c = expected.length;
   while (c--) {
-    var incoming = req.params;
     // if body is specified we need to check the body :)
-    if(expected[c].location === 'body') {
+    // exclude files
+    // todo - what if files are required?
+    if(expected[c].location === 'body' && expected[c].type !== 'file') {
       incoming = req.body;
     }
 
