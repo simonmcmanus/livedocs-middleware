@@ -1,6 +1,6 @@
 {
   "name": "livedocs-middleware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Restify Middleware to validate input against the fields provided in IORest spec.",
   "main": "validate.js",
   "scripts": {
