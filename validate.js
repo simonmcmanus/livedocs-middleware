@@ -16,10 +16,7 @@ module.exports = function(req, res, next) {
   function inArray(item, arr) {
     return arr.indexOf(item) > -1;
   }
-
-
   var expected = req.spec.parameters;
-
 
   var errors = [];
   var incoming = req.params;
@@ -33,18 +30,21 @@ module.exports = function(req, res, next) {
     }
 
     if (!incoming[expected[c].name]) { // param provided is listed.
-
       if (expected[c].required) {
-        if (
-          !incoming[expected[c].name] ||
-          incoming[expected[c].name] === ''
-        ) {
-          errors.push('`' + expected[c].name + '` is a required field.');
+        if(expected[c].location === 'body' && expected[c].name === 'body' ) {
+          // add better body error handling here :/
+            //errors.push('`' + expected[c].name + '` Body must not be empty.');
+        }else {
+          if (!incoming[expected[c].name] || incoming[expected[c].name] === ''){
+            // maybe its the body, in which case check incoming is not empty.
+            errors.push('`' + expected[c].name + '` is a required field.');
+          }
+        }
+        if(expected[c].location === 'body' && incoming === '') {
+         errors.push('`' + expected[c].name + '` is a required field.2');
         }
       }
-
     } else {
-
       if (expected[c].type === 'number') {
         if (isNaN(incoming[expected[c].name])) {
           errors.push('Expected number in field `' + expected[c].name +
