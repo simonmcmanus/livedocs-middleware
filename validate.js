@@ -13,9 +13,7 @@
 var restify = require('restify');
 
 module.exports = function(req, res, next) {
-  function inArray(item, arr) {
-    return arr.indexOf(item) > -1;
-  }
+
   var expected = req.spec.parameters;
 
   var errors = [];
@@ -41,7 +39,7 @@ module.exports = function(req, res, next) {
           }
         }
         if(expected[c].location === 'body' && incoming === '') {
-         errors.push('`' + expected[c].name + '` is a required field.2');
+         errors.push('`' + expected[c].name + '` is a required field.');
         }
       }
     } else {
@@ -53,10 +51,10 @@ module.exports = function(req, res, next) {
       }
 
       if (expected[c].options) {
-        if (!inArray(incoming[expected[c].name], expected[c].options)) {
+        if (!expected[c].options[incoming[expected[c].name]]) {
           errors.push('Invalid value (' + incoming[expected[c].name] +
             ') entered in field: `' + expected[c].name + '`. Available options'+
-            ' are: ' + expected[c].options.join(', ')
+            ' are: ' + Object.keys(expected[c].options).join(', ')
             );
         }
       }

@@ -20,10 +20,10 @@ var number = {
 var list = {
   name: 'aList',
   type: 'string',
-  options: [
-    'option1',
-    'option2',
-  ]
+  options: {
+    'option1': 'Options 1',
+    'option2': 'Options 2',
+  }
 }
 
 describe('Validate', function() {
@@ -118,6 +118,29 @@ describe('Validate', function() {
     })
   })
 })
+
+
+
+
+// move to middleware plugin.
+
+
+// describe('should reject when no body is present', function() {
+
+// });
+
+// describe('when no body is provided', function () {
+//   it('should reject the request', function (done) {
+
+//   });
+// });
+
+// describe('when an empty body is provided', function () {
+//   it('should reject the request with friendly error message', function (done) {
+
+//   });
+// });
+
 
 // todo - test multiple test condisions - eg required and not a number.
 
