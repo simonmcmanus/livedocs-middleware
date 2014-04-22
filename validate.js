@@ -51,8 +51,26 @@ module.exports = function(req, res, next) {
       }
 
       if (expected[c].options) {
-        if (!expected[c].options[incoming[expected[c].name]]) {
-          errors.push('Invalid value (' + incoming[expected[c].name] +
+        var badItems = [];
+        if(typeof incoming[expected[c].name] === 'string') {
+
+          if (!expected[c].options[incoming[expected[c].name]]) {
+            badItems.push(incoming[expected[c].name]);
+          }
+        }else {
+          var d = incoming[expected[c].name].length;
+          while(d--) {
+            var incomingItem = incoming[expected[c].name][d];
+            if (!expected[c].options[incomingItem]) {
+              badItems.push(incomingItem);
+            }
+          }
+        }
+
+        if (badItems.length > 0) {
+          var plural = (badItems.length > 1) ? 's' : '';
+          console.log('got bad error')
+          errors.push('Invalid value' + plural + ' (' + badItems.join(', ') +
             ') entered in field: `' + expected[c].name + '`. Available options'+
             ' are: ' + Object.keys(expected[c].options).join(', ')
             );

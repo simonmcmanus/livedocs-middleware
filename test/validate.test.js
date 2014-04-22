@@ -1,3 +1,5 @@
+'use strict';
+
 var validate = require('../validate');
 var should = require('should');
 var sinon = require('sinon');
@@ -24,23 +26,22 @@ var list = {
     'option1': 'Options 1',
     'option2': 'Options 2',
   }
-}
+};
 
 describe('Validate', function() {
   var next;
 
   describe('given a required field in the spec, when that field is not present', function() {
-
+    var isPresent;
     before(function() {
       req.spec.parameters = [number];
       next = sinon.spy();
-      validate(req, null, next)
+      validate(req, null, next);
     });
 
     it('should call the callback with an error stating that a required fields is missing', function() {
       should(next.args[0][0].body.code).equal('BadRequestError');
       isPresent = (next.args[0][0].body.message.indexOf('`numericValue` is a required field.')  > -1);
-
       should(isPresent).equal(true);
     });
   });
@@ -49,7 +50,7 @@ describe('Validate', function() {
       req.spec.parameters = [number];
       req.params.numericValue = '2';
       next = sinon.spy();
-      validate(req, null, next)
+      validate(req, null, next);
     });
 
     it('it should not error when the param is provided', function() {
@@ -64,7 +65,7 @@ describe('Validate', function() {
       req.spec.parameters = [number];
       req.params.numericValue = 'notanumber';
       next = sinon.spy();
-      validate(req, null, next)
+      validate(req, null, next);
     });
 
     it('should fail when a non numeric value is provided', function() {
@@ -85,7 +86,7 @@ describe('Validate', function() {
     it('should not fail', function() {
       should(next.args[0]).eql([]);
     });
-  })
+  });
 
   describe('When an option array is provided', function() {
     describe('when the value exists in the array', function() {
@@ -93,36 +94,38 @@ describe('Validate', function() {
         req.spec.parameters = [list];
         req.params.aList = 'option1';
         next = sinon.spy();
-        validate(req, null, next)
+        validate(req, null, next);
       });
 
       it('should not error', function() {
         should(next.args[0]).eql([]);
       });
-    })
+    });
+
+
     describe('if the value does not exist in the array', function() {
 
       before(function() {
         req.spec.parameters = [list];
         req.params.aList = 'option3';
         next = sinon.spy();
-        validate(req, null, next)
+        validate(req, null, next);
       });
 
 
       it('should return a unexpected value error.', function() {
         should(next.args[0][0].body.code).equal('BadRequestError');
         should(next.args[0][0].body.message).equal('Invalid value (option3) entered in field: `aList`. Available options are: option1, option2');
-
-      })
-    })
-  })
-})
-
+      });
+    });
+  });
+});
 
 
 
-// move to middleware plugin.
+// describe('when not data given but the field is not required.', function () {
+
+// });
 
 
 // describe('should reject when no body is present', function() {

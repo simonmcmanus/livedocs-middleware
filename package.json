@@ -4,7 +4,7 @@
   "description": "Restify Middleware to validate input against the fields provided in IORest spec.",
   "main": "validate.js",
   "scripts": {
-    "test": "mocha -C"
+    "test": "echo $PATH"
   },
   "author": "Simon McManus",
   "license": "BSD-2-Clause",
