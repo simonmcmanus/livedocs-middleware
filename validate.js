@@ -13,7 +13,6 @@
 var restify = require('restify');
 
 module.exports = function(req, res, next) {
-
   var expected = req.spec.parameters;
 
   var errors = [];
