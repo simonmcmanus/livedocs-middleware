@@ -69,7 +69,6 @@ module.exports = function(req, res, next) {
 
         if (badItems.length > 0) {
           var plural = (badItems.length > 1) ? 's' : '';
-          console.log('got bad error')
           errors.push('Invalid value' + plural + ' (' + badItems.join(', ') +
             ') entered in field: `' + expected[c].name + '`. Available options'+
             ' are: ' + Object.keys(expected[c].options).join(', ')
