@@ -2,7 +2,8 @@
 
 /**
  *
- * Restify Middleware to validate input against the fields provided in IORest spec.
+ * Restify Middleware to validate input against the fields provided in IORest
+ * spec.
  * Currently only checks
  *               - a value is provided for required fields.
  *               - params of type number are numbers.
@@ -79,7 +80,8 @@ module.exports = function(req, res, next) {
   }
   if (errors.length > 0) {
     return next(new restify.BadRequestError(errors.join('\n')));
+  } else {
+    next();
   }
-  next();
 };
 

@@ -20,7 +20,7 @@ var req = {
 };
 
 
-describe('given a request with multiple items select from checkboxe', function () {
+describe('given a request with multiple items select from checkboxes', function () {
   var out;
   var next;
   before(function() {
