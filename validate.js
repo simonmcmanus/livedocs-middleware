@@ -2,8 +2,7 @@
 
 /**
  *
- * Restify Middleware to validate input against the fields provided in IORest
- * spec.
+ * Restify Middleware to validate input against the fields provided in IORest spec.
  * Currently only checks
  *               - a value is provided for required fields.
  *               - params of type number are numbers.
@@ -29,7 +28,9 @@ module.exports = function(req, res, next) {
 
     if (!incoming[expected[c].name]) { // param provided is listed.
       if (expected[c].required) {
-        if(expected[c].location === 'body' && expected[c].name === 'body' ) {
+        if( expected[c].location === 'path' ||  // so assets/:id works
+            (expected[c].location === 'body' && expected[c].name === 'body' )
+          ) {
           // add better body error handling here :/
             //errors.push('`' + expected[c].name + '` Body must not be empty.');
         }else {
@@ -80,8 +81,7 @@ module.exports = function(req, res, next) {
   }
   if (errors.length > 0) {
     return next(new restify.BadRequestError(errors.join('\n')));
-  } else {
-    next();
   }
+  next();
 };
 

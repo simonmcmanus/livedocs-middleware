@@ -119,6 +119,25 @@ describe('Validate', function() {
       });
     });
   });
+
+
+
+  describe('when a param is marked as required but with location of path', function () {
+
+      before(function() {
+        req.spec.parameters = [{
+          name: 'id',
+          location: 'path',
+          required: true
+        }];
+        next = sinon.spy();
+        validate(req, null, next);
+      });
+
+    it('should not reject the request for not having a id param', function () {
+      should(next.args[0][0]).equal(undefined);
+    });
+  });
 });
 
 
