@@ -1,7 +1,7 @@
 livedocs-middleware
 ===================
 
-
+[![Build Status](https://travis-ci.org/simonmcmanus/livedocs-middleware.svg)](https://travis-ci.org/simonmcmanus/livedocs-middleware)
 
 Validate request coming into Restify based on spec for LiveDocs.
 
