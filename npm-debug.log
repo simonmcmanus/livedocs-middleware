@@ -1,0 +1,26 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'run', 'jshint' ]
+2 info using npm@1.3.24
+3 info using node@v0.10.25
+4 verbose run-script [ 'prejshint', 'jshint', 'postjshint' ]
+5 info prejshint livedocs-middleware@0.3.1
+6 info jshint livedocs-middleware@0.3.1
+7 verbose unsafe-perm in lifecycle true
+8 info livedocs-middleware@0.3.1 Failed to exec jshint script
+9 error livedocs-middleware@0.3.1 jshint: `jshint **/*.js --exclude node_modules`
+9 error Exit status 2
+10 error Failed at the livedocs-middleware@0.3.1 jshint script.
+10 error This is most likely a problem with the livedocs-middleware package,
+10 error not with npm itself.
+10 error Tell the author that this fails on your system:
+10 error     jshint **/*.js --exclude node_modules
+10 error You can get their info via:
+10 error     npm owner ls livedocs-middleware
+10 error There is likely additional logging output above.
+11 error System Darwin 13.3.0
+12 error command "node" "/usr/local/bin/npm" "run" "jshint"
+13 error cwd /Users/andreasmoller/repos/livedocs-middleware
+14 error node -v v0.10.25
+15 error npm -v 1.3.24
+16 error code ELIFECYCLE
+17 verbose exit [ 1, true ]
