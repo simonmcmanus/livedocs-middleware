@@ -8,7 +8,7 @@ var reqProto = {
   params: { // as passed in by the user
 
   },
-  spec: {  // as provided by the spec.
+  spec: { // as provided by the spec.
     parameters: []
   }
 };
@@ -42,7 +42,7 @@ describe('Validate', function() {
 
     it('should call the callback with an error stating that a required fields is missing', function() {
       should(next.args[0][0].body.code).equal('BadRequestError');
-      isPresent = (next.args[0][0].body.message.indexOf('`numericValue` is a required field.')  > -1);
+      isPresent = (next.args[0][0].body.message.indexOf('`numericValue` is a required field.') > -1);
       should(isPresent).equal(true);
     });
   });
@@ -82,7 +82,7 @@ describe('Validate', function() {
       req.spec.parameters = [number];
       req.params.numericValue = '2';
       next = sinon.spy();
-      validate(req, null, next)
+      validate(req, null, next);
     });
 
     it('should not fail', function() {
@@ -125,7 +125,7 @@ describe('Validate', function() {
 
 
 
-  describe('when a param is marked as required but with location of path', function () {
+  describe('when a param is marked as required but with location of path', function() {
     var req = Object.create(reqProto);
 
     before(function() {
@@ -139,7 +139,7 @@ describe('Validate', function() {
       validate(req, null, next);
     });
 
-    it('should still look for id in req.params', function () {
+    it('should still look for id in req.params', function() {
       should(next.args[0][0]).equal(undefined);
     });
   });
@@ -170,5 +170,3 @@ describe('Validate', function() {
 
 
 // todo - test multiple test condisions - eg required and not a number.
-
-

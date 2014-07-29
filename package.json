@@ -4,7 +4,8 @@
   "description": "Restify Middleware to validate input against the fields provided in IORest spec.",
   "main": "validate.js",
   "scripts": {
-    "test": "mocha -C"
+    "test": "mocha -C",
+    "jshint" : "jshint **/*.js --exclude <node_module></node_module>s"
   },
   "author": "Simon McManus",
   "license": "BSD-2-Clause",
