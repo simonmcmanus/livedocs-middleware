@@ -21,7 +21,6 @@ var req = {
 
 
 describe('given a request with multiple items select from checkboxes', function () {
-  var out;
   var next;
   before(function() {
     next = sinon.spy();
@@ -37,7 +36,6 @@ describe('given a request with multiple items select from checkboxes', function 
 });
 
 describe('given a request with multiple items select from checkboxes', function () {
-  var out;
   var next;
   before(function() {
     next = sinon.spy();
@@ -53,7 +51,6 @@ describe('given a request with multiple items select from checkboxes', function 
 });
 
 describe('given a request with a single incorrect value', function () {
-  var out;
   var next;
   before(function() {
     next = sinon.spy();
@@ -69,7 +66,6 @@ describe('given a request with a single incorrect value', function () {
 });
 
 describe('given a request with a multiple incorrect values', function () {
-  var out;
   var next;
   before(function() {
     next = sinon.spy();
@@ -86,7 +82,6 @@ describe('given a request with a multiple incorrect values', function () {
 
 
 describe('given a request with a one good and one incorrect value', function () {
-  var out;
   var next;
   before(function() {
     next = sinon.spy();

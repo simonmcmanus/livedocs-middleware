@@ -4,11 +4,11 @@ var validate = require('../validate');
 var should = require('should');
 var sinon = require('sinon');
 
-var req = {
+var reqProto = {
   params: { // as passed in by the user
 
   },
-  spec: {  // as provided by the spec.
+  spec: { // as provided by the spec.
     parameters: []
   }
 };
@@ -32,8 +32,9 @@ describe('Validate', function() {
   var next;
 
   describe('given a required field in the spec, when that field is not present', function() {
-    var isPresent;
+    var isPresent, req;
     before(function() {
+      req = Object.create(reqProto);
       req.spec.parameters = [number];
       next = sinon.spy();
       validate(req, null, next);
@@ -41,11 +42,12 @@ describe('Validate', function() {
 
     it('should call the callback with an error stating that a required fields is missing', function() {
       should(next.args[0][0].body.code).equal('BadRequestError');
-      isPresent = (next.args[0][0].body.message.indexOf('`numericValue` is a required field.')  > -1);
+      isPresent = (next.args[0][0].body.message.indexOf('`numericValue` is a required field.') > -1);
       should(isPresent).equal(true);
     });
   });
   describe('When a required parameter is provided', function() {
+    var req = Object.create(reqProto);
     before(function() {
       req.spec.parameters = [number];
       req.params.numericValue = '2';
@@ -59,7 +61,7 @@ describe('Validate', function() {
   });
 
   describe('When a numeric value is requried and a  string provided', function() {
-
+    var req = Object.create(reqProto);
     before(function() {
 
       req.spec.parameters = [number];
@@ -75,12 +77,12 @@ describe('Validate', function() {
   });
 
   describe('When a numeric value is required and provided', function() {
-
+    var req = Object.create(reqProto);
     before(function() {
       req.spec.parameters = [number];
       req.params.numericValue = '2';
       next = sinon.spy();
-      validate(req, null, next)
+      validate(req, null, next);
     });
 
     it('should not fail', function() {
@@ -90,6 +92,7 @@ describe('Validate', function() {
 
   describe('When an option array is provided', function() {
     describe('when the value exists in the array', function() {
+      var req = Object.create(reqProto);
       before(function() {
         req.spec.parameters = [list];
         req.params.aList = 'option1';
@@ -104,7 +107,7 @@ describe('Validate', function() {
 
 
     describe('if the value does not exist in the array', function() {
-
+      var req = Object.create(reqProto);
       before(function() {
         req.spec.parameters = [list];
         req.params.aList = 'option3';
@@ -122,19 +125,21 @@ describe('Validate', function() {
 
 
 
-  describe('when a param is marked as required but with location of path', function () {
+  describe('when a param is marked as required but with location of path', function() {
+    var req = Object.create(reqProto);
 
-      before(function() {
-        req.spec.parameters = [{
-          name: 'id',
-          location: 'path',
-          required: true
-        }];
-        next = sinon.spy();
-        validate(req, null, next);
-      });
+    before(function() {
+      req.spec.parameters = [{
+        name: 'id',
+        location: 'path',
+        required: true
+      }];
+      req.params.id = 'an id';
+      next = sinon.spy();
+      validate(req, null, next);
+    });
 
-    it('should not reject the request for not having a id param', function () {
+    it('should still look for id in req.params', function() {
       should(next.args[0][0]).equal(undefined);
     });
   });
@@ -165,5 +170,3 @@ describe('Validate', function() {
 
 
 // todo - test multiple test condisions - eg required and not a number.
-
-

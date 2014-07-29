@@ -67,7 +67,6 @@ module.exports = function(req, res, next) {
     // if body is specified we need to check the body :)
     // exclude files
     // todo - what if files are required?
-
     if(expected.location === 'body') {
       if (expected.type !== 'file' && expected.name !== 'body') {
         errors = errors.concat(validateParam(expected, req.body[expected.name]));
