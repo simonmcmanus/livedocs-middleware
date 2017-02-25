@@ -1,6 +1,8 @@
 livedocs-middleware
 ===================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/simonmcmanus/livedocs-middleware.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/simonmcmanus/livedocs-middleware.svg)](https://travis-ci.org/simonmcmanus/livedocs-middleware)
 
 Validate request coming into Restify based on spec for LiveDocs.
